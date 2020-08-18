@@ -1,0 +1,18 @@
+version: '3' # composeファイルのバーション指定
+services:
+      app: # service名
+       build: . # ビルドに使用するDockerfileがあるディレクトリ指定
+       tty: true # コンテナの起動永続化
+       volumes:
+          - ./src:/go/src/work # マウントディレクトリ指定
+       networks:
+           go_net:
+              ipv4_address: 192.168.5.5
+
+networks:
+   go_net:
+       driver: bridge
+       ipam:
+          driver: default
+          config:
+             - subnet: 192.168.5.0/24
